@@ -3,5 +3,7 @@ export const LoginApi = {
 };
 
 export const UserApi = {
-    getUserList: '/api/user/list'
+    getUserList: '/api/user/list',
+    register: '/api/register',
+    userAdd: '/api/user/add',
 }

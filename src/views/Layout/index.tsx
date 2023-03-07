@@ -17,7 +17,7 @@ const LayoutRouter: React.FC<LayoutProps> = ({children}) => {
       } = theme.useToken();
 
     return (
-    <Layout>
+    <Layout>~
       <Header className="header">
         <HeaderNav userStore={userStore}></HeaderNav>
       </Header>
