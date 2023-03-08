@@ -10,9 +10,9 @@ interface EModalProps {
     onCancel?: () => void;
   }
 
-export const EModal: React.FC<EModalProps> = ({children, open, confirmLoading, onOk, onCancel}) => {
+export const EModal: React.FC<EModalProps> = ({title, children, open, confirmLoading, onOk, onCancel}) => {
     return <Modal
-        title="Title"
+        title={title}
         open={open}
         onOk={onOk}
         confirmLoading={confirmLoading}

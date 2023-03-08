@@ -5,6 +5,7 @@ import { myAxios } from '~/utils/axios';
 import { UserApi } from '~/api';
 
 import { UserSearch } from './userSearch'
+import { UserModal } from './userModal'
 
 interface DataType {
   id: string | number;
@@ -56,9 +57,13 @@ export const UserTable: React.FC = () => {
     },
   ];
 
+  const [ modalOpen, setModalOpen ] = useState(false);
+  const [ params, setParams ] = useState({});
+  const [ infoId, setInfoId ] = useState('');
+
   const [ queryParams, setQueryParams ] = useState({});
   const [ pageParams, setPageParams ] = useState({
-    pageSize: 1,
+    pageSize: 10,
     current: 1,
   });
   const [ totals, setTotals ] = useState(0);
@@ -88,7 +93,9 @@ export const UserTable: React.FC = () => {
   }
 
   const openInsertPw = () => {
-    alert('弹窗新增用户表单')
+    setParams({});
+    setInfoId('');
+    setModalOpen(true);
   }
 
   useEffect(() => {
@@ -102,6 +109,9 @@ export const UserTable: React.FC = () => {
       pageSize: pageParams.pageSize,
       total: totals
     }}/> 
-
+    <UserModal open={modalOpen} sourceId={infoId} onCancel={(update: boolean = false) => {
+      if (update) getList()
+      setModalOpen(false)
+    }}/>
   </>)
 }
