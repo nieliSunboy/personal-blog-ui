@@ -50,8 +50,17 @@ export const UserTable: React.FC = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a>Invite {record.user_name}</a>
-          <a>Delete</a>
+          <Button type="link" onClick={() => {
+            console.log(record)
+            let recordJons = JSON.parse(JSON.stringify(record));
+            setInfoId(recordJons?.user_id);
+            setModalOpen(true);
+          }}>
+            编辑
+          </Button>
+          <Button type="link" danger>
+            刪除
+          </Button>
         </Space>
       ),
     },
@@ -72,14 +81,6 @@ export const UserTable: React.FC = () => {
     myAxios.post(UserApi.getUserList, Object.assign(pageParams, queryParams)).then(res => {
       setData(res.data.data || []);
       setTotals(res.data.totals || 0);
-    })
-  }
-  const resInfo = () => {
-    myAxios.post(UserApi.register, {
-      userName: 'user111',
-      password: '123456'
-    }).then(res => {
-      setData(res.data || []);
     })
   }
 
@@ -109,7 +110,7 @@ export const UserTable: React.FC = () => {
       pageSize: pageParams.pageSize,
       total: totals
     }}/> 
-    <UserModal open={modalOpen} sourceId={infoId} onCancel={(update: boolean = false) => {
+    <UserModal open={modalOpen} params={params} sourceId={infoId} onCancel={(update: boolean = false) => {
       if (update) getList()
       setModalOpen(false)
     }}/>

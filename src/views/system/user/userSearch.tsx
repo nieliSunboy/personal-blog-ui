@@ -17,7 +17,7 @@ export const UserSearch: React.FC<{
         onFinish={onChange}
         style={{ maxWidth: '100%', marginBottom: '10px' }}
     >
-        <Form.Item label="用户名称" name="userName">
+        <Form.Item label="用户名称" name="user_name">
             <Input placeholder="用户名称" />
         </Form.Item>
         <Form.Item label="电话号码" name="phone">

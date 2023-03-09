@@ -7,5 +7,5 @@ export const UserApi = {
     register: '/api/register',
     userAdd: '/api/user/add',
     userUpdate: '/api/user/update',
-    getUserById: '/api/user/list'
+    getUserById: '/api/user/detail',
 }

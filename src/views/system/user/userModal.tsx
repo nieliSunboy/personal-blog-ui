@@ -41,16 +41,16 @@ export const UserModal: React.FC<UserModalProps> = ({ open, sourceId, onCancel }
 
   const submit = (value: any) => {
     console.log(value)
-    if (!sourceId || !value?.user_id) {
+    if (!sourceId) {
       // 新增数据
       myAxios.post(UserApi.userAdd, value).then(res => {
-        console.log('info--', res.data)
+        console.log('info--', res.data)     
         setConfirmLoading(false);
         onCancel(true);
       })
     } else {
       // 编辑数据
-      myAxios.post(UserApi.userUpdate, value).then(res => {
+      myAxios.post(UserApi.userUpdate, Object.assign(value, { user_id: sourceId })).then(res => {
         console.log('info--', res.data)
         setConfirmLoading(false);
       })
@@ -58,12 +58,16 @@ export const UserModal: React.FC<UserModalProps> = ({ open, sourceId, onCancel }
   }
 
   const getInfoById = () => {
+
+    if (!open) {
+      return
+    }
+
     if (!sourceId) {
       return
     }
 
     myAxios.post(UserApi.getUserById, {id: sourceId}).then(res => {
-      console.log('info--', res.data)
       form.setFieldsValue(res.data || {});
     })
   }
@@ -95,7 +99,7 @@ export const UserModal: React.FC<UserModalProps> = ({ open, sourceId, onCancel }
       >
         <Form.Item
           label="登录账号"
-          name="userName"
+          name="user_name"
           rules={[
             { required: true, message: '登录账号不能为空' },
             { type: 'string', min: 6, max: 20, warningOnly: true, message: '请输入6~20字符' }]}
@@ -132,7 +136,7 @@ export const UserModal: React.FC<UserModalProps> = ({ open, sourceId, onCancel }
 
         <Form.Item
           label="邮箱"
-          name="emaill"
+          name="emall"
           rules={[{ required: false }, { type: 'email', message: '邮箱格式不正确' }]}
         >
           <Input />
